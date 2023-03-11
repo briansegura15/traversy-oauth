@@ -19,7 +19,7 @@ router.get(
 
 // @desc logout user
 // @route /auth/logout
-router.get("/logout", (req, res, next) => {
+router.get("/logout", (req, res) => {
   req.logout(function (err) {
     if (err) {
       return next(err);
