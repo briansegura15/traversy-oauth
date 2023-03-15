@@ -5,7 +5,9 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const exphbs = require("express-handlebars");
 const passport = require("passport");
+const mongoose = require("mongoose");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 // db connection config
 const connectDB = require("./config/db");
 
@@ -14,7 +16,6 @@ dotenv.config({path: "./config/config.env"});
 
 // Passport config
 require("./config/passport")(passport);
-
 connectDB();
 
 const app = express();
@@ -40,6 +41,9 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+    }),
   })
 );
 
